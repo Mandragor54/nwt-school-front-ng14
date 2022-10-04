@@ -10,7 +10,7 @@ import { filter, map, mergeMap, Observable } from 'rxjs';
 @Component({
   selector: 'nwt-update',
   templateUrl: './update.component.html',
-  styleUrls: ['./update.component.css'],
+  styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit {
   // private property to store all backend URLs
@@ -21,12 +21,7 @@ export class UpdateComponent implements OnInit {
   /**
    * Component constructor
    */
-  constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _http: HttpClient,
-    private _dialog: MatDialog
-  ) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, private _dialog: MatDialog) {
     this._backendURL = {};
 
     // build backend base url
@@ -37,14 +32,7 @@ export class UpdateComponent implements OnInit {
 
     // build all backend urls
     // @ts-ignore
-    Object.keys(environment.backend.endpoints).forEach(
-      (k) =>
-        (this._backendURL[k] = `${baseUrl}${
-          environment.backend.endpoints[
-            k as keyof typeof environment.backend.endpoints
-          ]
-        }`)
-    );
+    Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[k] = `${baseUrl}${environment.backend.endpoints[k]}`);
   }
 
   /**
@@ -67,12 +55,11 @@ export class UpdateComponent implements OnInit {
     this._peopleDialog = this._dialog.open(DialogComponent, {
       width: '500px',
       disableClose: true,
-      data: person,
+      data: person
     });
 
     // subscribe to afterClosed observable to set dialog status and do process
-    this._peopleDialog
-      .afterClosed()
+    this._peopleDialog.afterClosed()
       .pipe(
         filter((person: Person | undefined) => !!person),
         map((person: Person | undefined) => {
@@ -81,16 +68,16 @@ export class UpdateComponent implements OnInit {
           // delete obsolete attributes in original object which are not required in the API
           delete person?.id;
           delete person?.photo;
-          delete person?.birthDate;
 
           return { id, update: person };
         }),
-        mergeMap((_: { id: any; update: any }) => this._update(_.id, _.update))
+        mergeMap((_: { id: any, update: any }) => this._update(_.id, _.update))
       )
       .subscribe({
-        error: () => this._router.navigate(['/people']),
-        complete: () => this._router.navigate(['/people']),
-      });
+          error: () => this._router.navigate(['/people']),
+          complete: () => this._router.navigate(['/people'])
+        }
+      );
   }
 
   /**
@@ -108,8 +95,7 @@ export class UpdateComponent implements OnInit {
    * Returns an observable which fetch one person by id
    */
   private _fetchOne(id: string): Observable<Person> {
-    return this._http.get<Person>(
-      this._backendURL.onePeople.replace(':id', id)
-    );
+    return this._http.get<Person>(this._backendURL.onePeople.replace(':id', id));
   }
+
 }
