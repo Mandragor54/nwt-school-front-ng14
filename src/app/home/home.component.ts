@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
    * Component constructor
    */
   constructor() {
-    this._name = 'Angular Fans';
+    this._name = 'Marie !';
   }
 
   /**
