@@ -4,8 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 
+import { AppComponent } from './app.component';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -13,6 +17,6 @@ import { MatCardModule } from '@angular/material/card';
     MatCardModule,
   ],
   providers: [],
-  bootstrap: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
