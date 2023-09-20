@@ -46,4 +46,8 @@ export class PeopleComponent implements OnInit {
     this._http.get<Person[]>(this._backendURL.allPeople)
       .subscribe({ next: (people: Person[]) => this._people = people });
   }
+
+  deletePerson(person: Person){
+    console.log("delete");
+  }
 }
