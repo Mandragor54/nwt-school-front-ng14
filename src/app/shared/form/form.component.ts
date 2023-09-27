@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Person } from '../types/person.type';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'nwt-form',
@@ -16,6 +17,8 @@ export class FormComponent implements OnInit, OnChanges {
   // private property to store submit$ value
   private readonly _submit$: EventEmitter<Person>;
 
+  form : FormGroup;
+
   /**
    * Component constructor
    */
@@ -24,6 +27,11 @@ export class FormComponent implements OnInit, OnChanges {
     this._isUpdateMode = false;
     this._submit$ = new EventEmitter<Person>();
     this._cancel$ = new EventEmitter<void>();
+
+    this.form = new FormGroup({
+      id: new FormControl(''),
+      firstname: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)]))
+    })
   }
 
   /**
