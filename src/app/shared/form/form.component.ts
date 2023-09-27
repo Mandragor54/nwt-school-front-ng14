@@ -27,7 +27,12 @@ export class FormComponent implements OnInit, OnChanges {
     this._isUpdateMode = false;
     this._submit$ = new EventEmitter<Person>();
     this._cancel$ = new EventEmitter<void>();
-    this._form = this._buildForm();
+
+    CustomEmailValidator = (c: FormControl) => (c.value.indexOf('@') !== -1) ? null : {email: true}
+    this._form = new FormGroup({
+      email: new FormControl('', Validators.compose([Validators.required, CustomEmailValidator]))
+    });
+
   }
 
   /**
