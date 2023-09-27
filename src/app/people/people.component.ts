@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { defaultIfEmpty, filter, map, mergeMap, Observable } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../shared/dialog/dialog.component';
+import { PeopleService } from '../shared/services/people.service';
 
 @Component({
   selector: 'nwt-people',
@@ -24,10 +25,12 @@ export class PeopleComponent implements OnInit {
   /**
    * Component constructor
    */
-  constructor(private _http: HttpClient, private _dialog: MatDialog) {
+  constructor(private _http: HttpClient, private _dialog: MatDialog, private peopleService: PeopleService) {
     this._people = [];
     this._backendURL = {};
     this._dialogStatus = 'inactive';
+
+    
 
     // build backend base url
     let baseUrl = `${environment.backend.protocol}://${environment.backend.host}`;
