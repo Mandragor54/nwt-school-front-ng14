@@ -26,7 +26,14 @@
               placeholder="First name *"
               [(ngModel)]="model.firstname"
               name="firstname"
+              #firstname="ngModel"
+              required
+              minlength="3"
             />
+
+            <mat-error *ngIf="firstname.dirty && firstname.hasError('required')">
+              <span class="help-block">Ce champ est obligatoire</span>
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width">
             <input
