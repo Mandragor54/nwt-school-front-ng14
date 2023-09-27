@@ -7,6 +7,6 @@ export class NaPipe implements PipeTransform {
 
   transform(manager?: string, isManager?: boolean): unknown {
     return isManager ? "N/A" : manager;
-  }
+  } // 
 
 }
